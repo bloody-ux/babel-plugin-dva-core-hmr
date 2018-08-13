@@ -14,7 +14,7 @@
   </a>
 </p>
 
-HMR support for dva-core/dva， only suppport `dva>=2.4.0` or `dva-core>=1.4.0`. Especially useful for those apps using `dva-core` instead of `dva`. When this plugin is enabled, HMR will be enabled for dva model.
+HMR support for dva-core/dva， only suppport `dva>=2.4.0` or `dva-core>=1.4.0`. Especially useful for those apps using `dva-core` instead of `dva`. When this plugin is enabled, HMR will be enabled for dva models.
 
 ## Installation
 
