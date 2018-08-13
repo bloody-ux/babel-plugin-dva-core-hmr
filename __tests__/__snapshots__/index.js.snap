@@ -1,0 +1,186 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app.model with babel options 1`] = `
+"
+import HomeModel from '../model/home';
+      dva.model(HomeModel)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import HomeModel from '../model/home';
+dva.model(HomeModel);
+
+if (module.hot) {
+  module.hot.accept(\\"../model/home\\", () => {
+    try {
+      let newModel = require(\\"../model/home\\");
+
+      if (newModel.default) newModel = newModel.default;
+      dva.replaceModel(newModel);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+}
+"
+`;
+
+exports[`import default app.model 1`] = `
+"
+import HomeModel from '../model/home';
+      app.model(HomeModel);
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import HomeModel from '../model/home';
+app.model(HomeModel);
+
+if (module.hot) {
+  module.hot.accept(\\"../model/home\\", () => {
+    try {
+      let newModel = require(\\"../model/home\\");
+
+      if (newModel.default) newModel = newModel.default;
+      app.replaceModel(newModel);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+}
+"
+`;
+
+exports[`import namepsace app.model 1`] = `
+"
+import { HomeModel } from '../model/home';
+    app.model(HomeModel);
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { HomeModel } from '../model/home';
+app.model(HomeModel);
+
+if (module.hot) {
+  module.hot.accept(\\"../model/home\\", () => {
+    try {
+      let newModel = require(\\"../model/home\\");
+
+      if (newModel.default) newModel = newModel.default;
+      app.replaceModel(newModel);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+}
+"
+`;
+
+exports[`require app.model 1`] = `
+"
+const HomeModel = require('../model/home');
+    app.model(HomeModel);
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const HomeModel = require('../model/home');
+
+app.model(HomeModel);
+
+if (module.hot) {
+  module.hot.accept(\\"../model/home\\", () => {
+    try {
+      let newModel = require(\\"../model/home\\");
+
+      if (newModel.default) newModel = newModel.default;
+      app.replaceModel(newModel);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+}
+"
+`;
+
+exports[`require app.model inline 1`] = `
+"
+app.model(require('../model/home'));
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+app.model(require('../model/home'));
+
+if (module.hot) {
+  module.hot.accept(\\"../model/home\\", () => {
+    try {
+      let newModel = require(\\"../model/home\\");
+
+      if (newModel.default) newModel = newModel.default;
+      app.replaceModel(newModel);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+}
+"
+`;
+
+exports[`require app.model inline with member 1`] = `
+"
+app.model(require('../model/home').HomeModel);
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+app.model(require('../model/home').HomeModel);
+
+if (module.hot) {
+  module.hot.accept(\\"../model/home\\", () => {
+    try {
+      let newModel = require(\\"../model/home\\");
+
+      if (newModel.default) newModel = newModel.default;
+      app.replaceModel(newModel);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+}
+"
+`;
+
+exports[`require app.model with member 1`] = `
+"
+const HomeModel = require('../model/home').HomeModel;
+    app.model(HomeModel);
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const HomeModel = require('../model/home').HomeModel;
+
+app.model(HomeModel);
+
+if (module.hot) {
+  module.hot.accept(\\"../model/home\\", () => {
+    try {
+      let newModel = require(\\"../model/home\\");
+
+      if (newModel.default) newModel = newModel.default;
+      app.replaceModel(newModel);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+}
+"
+`;
+
+exports[`should not hit hmr dva.model 1`] = `
+"
+import HomeModel from '../model/home';
+    dva.model(HomeModel);
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import HomeModel from '../model/home';
+dva.model(HomeModel);
+"
+`;
