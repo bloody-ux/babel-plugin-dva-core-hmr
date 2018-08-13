@@ -14,7 +14,7 @@
   </a>
 </p>
 
-HMR support for dva-core/dva
+HMR support for dva-core/dva， only suppport `dva>=2.4.0` or `dva-core>=1.4.0`. Especially useful for those apps using `dva-core` instead of `dva`. When this plugin is enabled, HMR will be enabled for dva model.
 
 ## Installation
 
@@ -71,4 +71,9 @@ if (module.hot) {
 ## Options
 
 `appNames`：what dva-core/dva instance names should be matched. default: `['app']`
+
+## Why HMR does't work?
+
+- Check whether `babel-loader` is enabled for those models.
+- Check whether `app.model` is called. If not, please change plugin config `appNames`. For example, if your code has `dva.model` and you want to enable HMR, please change config to `appNames: ['dva']`
 
