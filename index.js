@@ -8,7 +8,7 @@ module.exports = function dvaCoreHmrPlugin({
 }) {
   function getImportRequirePath(identifierName, scope) {
     if (scope.hasBinding(identifierName)) {
-      const binding = scope.bindings[identifierName]
+      const binding = scope.getBinding(identifierName)
       if (binding) {
         const parent = binding.path.parent
 
