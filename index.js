@@ -137,7 +137,12 @@ module.exports = function dvaCoreHmrPlugin({
 
         const { callee, arguments: args } = path.node
 
-        if (isModelCall(callee, this.opts.appNames)) {
+        const isDva =
+          this.file.opts.filename.indexOf('/node_modules/_dva-core@') >= 0 ||
+          this.file.opts.filename.indexOf('/node_modules/_dva@') >= 0
+
+        // don't do anything within dva itself
+        if (!isDva && isModelCall(callee, this.opts.appNames)) {
           const modelPath = getRequirePath(args[0], path.scope)
 
           const hmrExpression = hmrTemplate({
