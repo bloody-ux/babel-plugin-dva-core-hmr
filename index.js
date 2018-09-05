@@ -138,19 +138,24 @@ module.exports = function dvaCoreHmrPlugin({
         const { callee, arguments: args } = path.node
 
         const isDva =
-          this.file.opts.filename.indexOf('/node_modules/_dva-core@') >= 0 ||
-          this.file.opts.filename.indexOf('/node_modules/_dva@') >= 0
+          this.file.opts.filename.indexOf('/node_modules/_dva-core@') >= 0 || // tnpm
+          this.file.opts.filename.indexOf('/node_modules/_dva@') >= 0 ||
+          this.file.opts.filename.indexOf('/node_modules/dva-core/') >= 0 || // npm
+          this.file.opts.filename.indexOf('/node_modules/dva/') >= 0
 
         // don't do anything within dva itself
         if (!isDva && isModelCall(callee, this.opts.appNames)) {
           const modelPath = getRequirePath(args[0], path.scope)
 
-          const hmrExpression = hmrTemplate({
-            MODELPATH: t.stringLiteral(modelPath),
-            APPNAME: callee.object
-          })
+          // if modelPath can be found directly
+          if (modelPath) {
+            const hmrExpression = hmrTemplate({
+              MODELPATH: t.stringLiteral(modelPath),
+              APPNAME: callee.object
+            })
 
-          path.parentPath.insertAfter(hmrExpression)
+            path.parentPath.insertAfter(hmrExpression)
+          }
         }
       }
     }
