@@ -1,5 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`app.model with appImport & appImportName 1`] = `
+"
+import React, { Component } from '@alipay/oc/react';
+      function doModel({ app }) {
+        app.model(require('../model/home').xxxx);
+        app.model(require('../model/about'));
+      }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import React, { Component } from '@alipay/oc/react';
+
+function doModel({
+  app
+}) {
+  app.model(require('../model/home').xxxx);
+  app.model(require('../model/about'));
+}
+
+import { getApp } from '@alipay/oc';
+
+if (module.hot) {
+  module.hot.accept(\\"../model/home\\", () => {
+    try {
+      let newModel = require(\\"../model/home\\");
+
+      if (newModel.default) newModel = newModel.default;
+      getApp().replaceModel(newModel);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+}
+
+if (module.hot) {
+  module.hot.accept(\\"../model/about\\", () => {
+    try {
+      let newModel = require(\\"../model/about\\");
+
+      if (newModel.default) newModel = newModel.default;
+      getApp().replaceModel(newModel);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+}
+"
+`;
+
 exports[`app.model with babel options 1`] = `
 "
 import HomeModel from '../model/home';

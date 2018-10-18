@@ -1,6 +1,7 @@
 'use-strict'
 
 const visited = Symbol('visited')
+const imported = Symbol('imported')
 
 module.exports = function dvaCoreHmrPlugin({
   types: t,
@@ -138,10 +139,13 @@ module.exports = function dvaCoreHmrPlugin({
         const { callee, arguments: args } = path.node
 
         const isDva =
-          this.file.opts.filename.indexOf('/node_modules/_dva-core@') >= 0 || // tnpm
-          this.file.opts.filename.indexOf('/node_modules/_dva@') >= 0 ||
-          this.file.opts.filename.indexOf('/node_modules/dva-core/') >= 0 || // npm
-          this.file.opts.filename.indexOf('/node_modules/dva/') >= 0
+          this.file.opts.filename &&
+          (
+            this.file.opts.filename.indexOf('/node_modules/_dva-core@') >= 0 || // tnpm
+            this.file.opts.filename.indexOf('/node_modules/_dva@') >= 0 ||
+            this.file.opts.filename.indexOf('/node_modules/dva-core/') >= 0 || // npm
+            this.file.opts.filename.indexOf('/node_modules/dva/') >= 0
+          )
 
         // don't do anything within dva itself
         if (!isDva && isModelCall(callee, this.opts.appNames)) {
@@ -149,12 +153,28 @@ module.exports = function dvaCoreHmrPlugin({
 
           // if modelPath can be found directly
           if (modelPath) {
-            const hmrExpression = hmrTemplate({
-              MODELPATH: t.stringLiteral(modelPath),
-              APPNAME: callee.object
-            })
+            if (!this.opts.appImport || !this.opts.appImportName) {
+              const hmrExpression = hmrTemplate({
+                MODELPATH: t.stringLiteral(modelPath),
+                APPNAME: callee.object
+              })
 
-            path.parentPath.insertAfter(hmrExpression)
+              path.parentPath.insertAfter(hmrExpression)
+            } else {
+              const programPath = path.findParent(p => p.isProgram())
+              if (!programPath[imported]) {
+                const importer = template(this.opts.appImport)
+                programPath.node.body.push(importer({}))
+                programPath[imported] = true
+              }
+
+              const hmrExpression = hmrTemplate({
+                MODELPATH: t.stringLiteral(modelPath),
+                APPNAME: t.identifier(this.opts.appImportName)
+              })
+
+              programPath.node.body.push(hmrExpression)
+            }
           }
         }
       }

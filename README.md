@@ -72,6 +72,8 @@ if (module.hot) {
 
 `appNames`：what dva-core/dva instance names should be matched. default: `['app']`
 
+`appImport` + `appImportName`: if `app.model` doesn't get run on module level, whe  webpack HMR happens, HMR code of model won't get excuted, and with these two options set, HMR code of model will to promoted to module level. Please find more information in tests.
+
 ## Why HMR does't work?
 
 - Check whether `babel-loader` is enabled for those models.

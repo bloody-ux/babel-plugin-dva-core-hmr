@@ -39,7 +39,18 @@ pluginTester({
     },
     'should not hit hmr dva.model': `import HomeModel from '../model/home';
     dva.model(HomeModel);
-    `
+    `,
+    'app.model with appImport & appImportName': {
+      code: `import React, { Component } from '@alipay/oc/react';
+      function doModel({ app }) {
+        app.model(require('../model/home').xxxx);
+        app.model(require('../model/about'));
+      }`,
+      pluginOptions: {
+        appImport: 'import { getApp } from \'@alipay/oc\';',
+        appImportName: 'getApp()'
+      }
+    }
   }
 })
 
